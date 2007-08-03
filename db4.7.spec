@@ -382,6 +382,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /%{_lib}/libdb-%{mver}.so
 %dir %{_docdir}/db-%{version}-docs
 %{_docdir}/db-%{version}-docs/index.html
+%{_docdir}/db-%{version}-docs/license
 
 %files devel
 %defattr(644,root,root,755)
@@ -396,6 +397,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/db.h
 %{_includedir}/db_185.h
 %{_docdir}/db-%{version}-docs/api_c
+%{_docdir}/db-%{version}-docs/articles
 %dir %{_docdir}/db-%{version}-docs/gsg
 %{_docdir}/db-%{version}-docs/gsg/C
 %dir %{_docdir}/db-%{version}-docs/gsg_txn
