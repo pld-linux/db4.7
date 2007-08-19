@@ -14,14 +14,14 @@
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.6
-Version:	%{mver}.18
+Version:	%{mver}.19
 Release:	1
 Epoch:		0
 License:	Sleepycat public license (GPL-like, see LICENSE)
 Group:		Libraries
 # alternative site (sometimes working): http://www.berkeleydb.com/
 Source0:	http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
-# Source0-md5:	95768bd92fd48951a427fbab37b9088f
+# Source0-md5:	89c7390ff120d5ebf3eccc5f97249e79
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	autoconf
 BuildRequires:	automake
