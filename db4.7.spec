@@ -15,7 +15,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.6
 Version:	%{mver}.19
-Release:	1
+Release:	2
 Epoch:		0
 License:	Sleepycat public license (GPL-like, see LICENSE)
 Group:		Libraries
@@ -56,6 +56,7 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	db-devel = %{version}-%{release}
 Obsoletes:	db3-devel
 Obsoletes:	db4-devel
+Obsoletes:	db4.5-devel
 
 %description devel
 The Berkeley Database (Berkeley DB) is a programmatic toolkit that
