@@ -157,7 +157,7 @@ Statyczna wersja biblioteki db-cxx.
 Summary:	Berkeley database library for Java
 Summary(pl.UTF-8):	Biblioteka baz danych Berkeley dla Javy
 Group:		Libraries
-Requires:	jre
+Requires:	jpackage-utils
 Provides:	db-java = %{version}-%{release}
 
 %description java
