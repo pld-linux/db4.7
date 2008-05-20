@@ -15,13 +15,14 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.6
 Version:	%{mver}.21
-Release:	1
+Release:	2
 Epoch:		0
 License:	Sleepycat public license (GPL-like, see LICENSE)
 Group:		Libraries
 # alternative site (sometimes working): http://www.berkeleydb.com/
 Source0:	http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 # Source0-md5:	718082e7e35fc48478a2334b0bc4cd11
+Patch0:		http://www.oracle.com/technology/products/berkeley-db/db/update/4.6.21/patch.4.6.21.1
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -242,6 +243,7 @@ poleceń.
 
 %prep
 %setup -q -n db-%{version}
+%patch0 -p0
 
 %if !%{with nptl}
 sed -i -e 's,AM_PTHREADS_SHARED("POSIX/.*,:,' dist/aclocal/mutex.ac
