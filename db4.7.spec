@@ -2,27 +2,23 @@
 # Conditional build:
 %bcond_without	java		# don't build java bindings
 %bcond_without	tcl		# don't build Tcl bindings
-%bcond_with	pmutex		# use POSIX mutexes (only process-private with linuxthreads)
-%bcond_without	nptl		# don't use process-shared POSIX mutexes (NPTL provides full interface)
 %bcond_without	static_libs	# don't build static libraries
 #
-%{?with_nptl:%define	with_pmutex	1}
 %ifnarch i586 i686 athlon pentium3 pentium4 %{x8664}
 %undefine with_java
 %endif
-%define	mver	4.6
+%define	mver	4.7
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
-Name:		db4.6
-Version:	%{mver}.21
-Release:	2
+Name:		db4.7
+Version:	%{mver}.25
+Release:	1
 Epoch:		0
 License:	Sleepycat public license (GPL-like, see LICENSE)
 Group:		Libraries
 # alternative site (sometimes working): http://www.berkeleydb.com/
 Source0:	http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
-# Source0-md5:	718082e7e35fc48478a2334b0bc4cd11
-Patch0:		http://www.oracle.com/technology/products/berkeley-db/db/update/4.6.21/patch.4.6.21.1
+# Source0-md5:	ec2b87e833779681a0c3a814aa71359e
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -243,11 +239,6 @@ poleceń.
 
 %prep
 %setup -q -n db-%{version}
-%patch0 -p0
-
-%if !%{with nptl}
-sed -i -e 's,AM_PTHREADS_SHARED("POSIX/.*,:,' dist/aclocal/mutex.ac
-%endif
 
 %build
 cd dist
@@ -274,7 +265,7 @@ export CC CXX CFLAGS CXXFLAGS LDFLAGS
 	--disable-shared \
 	--enable-static \
 	--enable-rpc \
-	--%{?with_pmutex:en}%{!?with_pmutex:dis}able-posixmutexes \
+	--enable-posixmutexes \
 	--enable-cxx
 
 # (temporarily?) disabled because of compilation errors:
@@ -291,7 +282,7 @@ cd build_unix
 	--libdir=%{_libdir} \
 	--enable-compat185 \
 	--enable-rpc \
-	--%{?with_pmutex:en}%{!?with_pmutex:dis}able-posixmutexes \
+	--enable-posixmutexes \
 	--enable-cxx \
 	%{?with_tcl:--enable-tcl} \
 	%{?with_tcl:--with-tcl=/usr/lib} \
