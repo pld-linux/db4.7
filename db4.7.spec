@@ -12,7 +12,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{mver}.25
-Release:	1
+Release:	2
 Epoch:		0
 License:	Sleepycat public license (GPL-like, see LICENSE)
 Group:		Libraries
@@ -244,7 +244,8 @@ poleceń.
 cd dist
 cp -f /usr/share/aclocal/libtool.m4 aclocal/libtool.ac
 cp -f /usr/share/automake/config.sub .
-cp -f /usr/share/libtool/ltmain.sh .
+# for libtool < 2.2
+[ -f /usr/share/libtool/ltmain.sh ] && cp -f /usr/share/libtool/ltmain.sh .
 sh s_config
 cd ..
 
