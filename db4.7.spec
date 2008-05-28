@@ -14,18 +14,15 @@ Name:		db4.7
 Version:	%{mver}.25
 Release:	2
 Epoch:		0
-License:	Sleepycat public license (GPL-like, see LICENSE)
+License:	GPL-like (see LICENSE)
 Group:		Libraries
-# alternative site (sometimes working): http://www.berkeleydb.com/
 Source0:	http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 # Source0-md5:	ec2b87e833779681a0c3a814aa71359e
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
-BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ed
 %{?with_java:BuildRequires:	jdk}
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
 BuildRequires:	sed >= 4.0
 %{?with_tcl:BuildRequires:	tcl-devel >= 8.4.0}
 Provides:	db = %{version}-%{release}
@@ -241,13 +238,7 @@ poleceń.
 %setup -q -n db-%{version}
 
 %build
-cd dist
-cp -f /usr/share/aclocal/libtool.m4 aclocal/libtool.ac
-cp -f /usr/share/automake/config.sub .
-# for libtool < 2.2
-[ -f /usr/share/libtool/ltmain.sh ] && cp -f /usr/share/libtool/ltmain.sh .
-sh s_config
-cd ..
+cp -f /usr/share/automake/config.sub dist
 
 %if %{with static_libs}
 cp -a build_unix build_unix.static
