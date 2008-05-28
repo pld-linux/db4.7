@@ -25,8 +25,8 @@ BuildRequires:	ed
 BuildRequires:	libstdc++-devel
 BuildRequires:	sed >= 4.0
 %{?with_tcl:BuildRequires:	tcl-devel >= 8.4.0}
+Requires:	uname(release) >= 2.6.0
 Provides:	db = %{version}-%{release}
-%{?with_rpm_robustness:Requires:	uname(release) >= 2.6.17}
 Obsoletes:	db4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
