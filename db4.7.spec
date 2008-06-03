@@ -12,7 +12,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{mver}.25
-Release:	2
+Release:	3
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
@@ -51,6 +51,7 @@ Provides:	db-devel = %{version}-%{release}
 Obsoletes:	db3-devel
 Obsoletes:	db4-devel
 Obsoletes:	db4.5-devel
+Obsoletes:	db4.6-devel
 
 %description devel
 The Berkeley Database (Berkeley DB) is a programmatic toolkit that
