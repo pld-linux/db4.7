@@ -12,13 +12,15 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{mver}.25
-Release:	4
+Release:	5
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
 Source0:	http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 # Source0-md5:	ec2b87e833779681a0c3a814aa71359e
 Patch0:		http://www.oracle.com/technology/products/berkeley-db/db/update/4.7.25/patch.4.7.25.1
+Patch1:		http://www.oracle.com/technology/products/berkeley-db/db/update/4.7.25/patch.4.7.25.2
+Patch2:		http://www.oracle.com/technology/products/berkeley-db/db/update/4.7.25/patch.4.7.25.3
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	automake
 BuildRequires:	ed
@@ -239,6 +241,8 @@ poleceń.
 %prep
 %setup -q -n db-%{version}
 %patch0 -p0
+%patch1 -p0
+%patch2 -p0
 
 %build
 cp -f /usr/share/automake/config.sub dist
