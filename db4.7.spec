@@ -86,6 +86,8 @@ Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	db-static = %{version}-%{release}
 Obsoletes:	db3-static
 Obsoletes:	db4-static
+Obsoletes:	db4.5-static
+Obsoletes:	db4.6-static
 
 %description static
 The Berkeley Database (Berkeley DB) is a programmatic toolkit that
