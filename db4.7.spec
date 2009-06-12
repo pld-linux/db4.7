@@ -3,10 +3,6 @@
 %bcond_without	java		# don't build java bindings
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
-#
-%ifnarch i586 i686 athlon pentium3 pentium4 %{x8664}
-%undefine with_java
-%endif
 
 %if "%{pld_release}" == "ti"
 %bcond_without	java_sun	# build with gcj
