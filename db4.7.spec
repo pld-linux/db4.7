@@ -8,6 +8,14 @@
 %undefine with_java
 %endif
 
+%if "%{pld_release}" == "ti"
+%bcond_without	java_sun	# build with gcj
+%else
+%bcond_with	java_sun	# build with java-sun
+%endif
+
+%include	/usr/lib/rpm/macros.java
+
 %define		libver		4.7
 %define		ver			%{libver}.25
 %define		patchlevel	4
@@ -15,7 +23,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	1
+Release:	2
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
@@ -25,7 +33,12 @@ Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	automake
 BuildRequires:	ed
-%{?with_java:BuildRequires:	jdk}
+%if %{with java}
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	rpm >= 4.4.9-56
+BuildRequires:	rpm-javaprov
+%endif
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpmbuild(macros) >= 1.426
 BuildRequires:	sed >= 4.0
@@ -250,6 +263,9 @@ poleceń.
 %build
 cp -f /usr/share/automake/config.sub dist
 
+JAVACFLAGS="-source 1.5 -target 1.5"
+export JAVACFLAGS
+
 %if %{with static_libs}
 cp -a build_unix build_unix.static
 
@@ -260,6 +276,7 @@ CXX="%{__cxx}"
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags} -fno-implicit-templates"
 LDFLAGS="%{rpmcflags} %{rpmldflags}"
+
 export CC CXX CFLAGS CXXFLAGS LDFLAGS
 
 ../dist/%configure \
