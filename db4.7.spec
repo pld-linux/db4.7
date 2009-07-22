@@ -14,7 +14,7 @@
 
 %define		libver		4.7
 %define		ver			%{libver}.25
-%define		patchlevel	4
+%define		patchlevel	5
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
@@ -41,6 +41,7 @@ BuildRequires:	sed >= 4.0
 %{?with_tcl:BuildRequires:	tcl-devel >= 8.4.0}
 Requires:	uname(release) >= 2.6.0
 Provides:	db = %{version}-%{release}
+Provides:	db = %{libver}
 Obsoletes:	db4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
