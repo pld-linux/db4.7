@@ -14,12 +14,12 @@
 
 %define		libver		4.7
 %define		ver			%{libver}.25
-%define		patchlevel	5
+%define		patchlevel	4
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	3
+Release:	4
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
