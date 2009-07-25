@@ -19,7 +19,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	4
+Release:	5
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
@@ -374,6 +374,9 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/db-java-%{version}
 cp -rf examples_java/* $RPM_BUILD_ROOT%{_examplesdir}/db-java-%{version}
 %endif
 
+# in %doc
+rm -f $RPM_BUILD_ROOT%{_docdir}/db-%{version}-docs/{index.html,license/license_db.html}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -388,11 +391,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc LICENSE README docs/index.html docs/license
 %attr(755,root,root) /%{_lib}/libdb-%{libver}.so
-%dir %{_docdir}/db-%{version}-docs
-%{_docdir}/db-%{version}-docs/index.html
-%{_docdir}/db-%{version}-docs/license
 
 %files devel
 %defattr(644,root,root,755)
@@ -406,6 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libndbm.la
 %{_includedir}/db.h
 %{_includedir}/db_185.h
+%dir %{_docdir}/db-%{version}-docs
 %{_docdir}/db-%{version}-docs/api_c
 %{_docdir}/db-%{version}-docs/articles
 %dir %{_docdir}/db-%{version}-docs/gsg
@@ -415,6 +416,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_docdir}/db-%{version}-docs/gsg_db_rep
 %{_docdir}/db-%{version}-docs/gsg_db_rep/C
 %{_docdir}/db-%{version}-docs/images
+%{_docdir}/db-%{version}-docs/porting
 %{_docdir}/db-%{version}-docs/ref
 %{_examplesdir}/db-%{version}
 
