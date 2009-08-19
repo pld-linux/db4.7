@@ -19,7 +19,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	5
+Release:	6
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
@@ -500,4 +500,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/db*_stat
 %attr(755,root,root) %{_bindir}/db*_upgrade
 %attr(755,root,root) %{_bindir}/db*_verify
+%dir %{_docdir}/db-%{version}-docs
 %{_docdir}/db-%{version}-docs/utility
