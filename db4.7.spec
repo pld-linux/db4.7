@@ -4,12 +4,6 @@
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
 
-%if "%{pld_release}" == "ti"
-%bcond_without	java_sun	# build with gcj
-%else
-%bcond_with	java_sun	# build with java-sun
-%endif
-
 %include	/usr/lib/rpm/macros.java
 
 %define		libver		4.7
@@ -30,9 +24,7 @@ URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
 BuildRequires:	automake
 BuildRequires:	ed
 %if %{with java}
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
-BuildRequires:	rpm >= 4.4.9-56
+BuildRequires:	jdk
 BuildRequires:	rpm-javaprov
 %endif
 BuildRequires:	libstdc++-devel
