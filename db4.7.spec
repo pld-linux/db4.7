@@ -1,10 +1,11 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# do not build and package API docs
 %bcond_without	java		# don't build java bindings
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
 
-%include	/usr/lib/rpm/macros.java
+%{?with_java:%include	/usr/lib/rpm/macros.java}
 
 %define		libver		4.7
 %define		ver			%{libver}.25
@@ -114,6 +115,13 @@ dla C, C++, Javy i Perla.
 
 Ten pakiet zawiera statyczne biblioteki do budowania programów
 używających Berkeley DB.
+
+%package apidocs
+Summary:	Berkeley database library API documentation
+Group:		Documentation
+
+%description apidocs
+API and internal documentation for Berkeley database library.
 
 %package cxx
 Summary:	Berkeley database library for C++
@@ -398,6 +406,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libndbm.la
 %{_includedir}/db.h
 %{_includedir}/db_185.h
+%{_examplesdir}/db-%{version}
+
+%if %{with static_libs}
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libdb-%{libver}.a
+%{_libdir}/libdb4.a
+%{_libdir}/libdb.a
+%{_libdir}/libndbm.a
+%endif
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
 %dir %{_docdir}/db-%{version}-docs
 %{_docdir}/db-%{version}-docs/api_c
 %{_docdir}/db-%{version}-docs/articles
@@ -410,15 +432,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/db-%{version}-docs/images
 %{_docdir}/db-%{version}-docs/porting
 %{_docdir}/db-%{version}-docs/ref
-%{_examplesdir}/db-%{version}
-
-%if %{with static_libs}
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libdb-%{libver}.a
-%{_libdir}/libdb4.a
-%{_libdir}/libdb.a
-%{_libdir}/libndbm.a
 %endif
 
 %files cxx
