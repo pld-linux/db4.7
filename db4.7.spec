@@ -1,14 +1,14 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
-%bcond_without	java		# don't build java bindings
+%bcond_without	java		# don't build Java bindings
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
 
 %{?with_java:%include	/usr/lib/rpm/macros.java}
 
 %define		libver		4.7
-%define		ver			%{libver}.25
+%define		ver		%{libver}.25
 %define		patchlevel	4
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
@@ -18,10 +18,11 @@ Release:	7
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
+#Source0Download: http://www.oracle.com/technetwork/database/berkeleydb/downloads/index-082944.html
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	ec2b87e833779681a0c3a814aa71359e
-%patchset_source -f http://www.oracle.com/technology/products/berkeley-db/db/update/%{ver}/patch.%{ver}.%g 1 %{patchlevel}
-URL:		http://www.oracle.com/technology/products/berkeley-db/index.html
+%patchset_source -f http://download.oracle.com/berkeley-db/patches/db/%{ver}/patch.%{ver}.%g 1 %{patchlevel}
+URL:		http://www.oracle.com/technetwork/database/berkeleydb/downloads/index.html
 BuildRequires:	automake
 BuildRequires:	ed
 %if %{with java}
@@ -118,10 +119,14 @@ używających Berkeley DB.
 
 %package apidocs
 Summary:	Berkeley database library API documentation
+Summary(pl.UTF-8):	Dokumentacja API biblioteki baz danych Berkeley
 Group:		Documentation
 
 %description apidocs
 API and internal documentation for Berkeley database library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API i wewnętrzna do biblioteki baz danych Berkeley.
 
 %package cxx
 Summary:	Berkeley database library for C++
@@ -253,7 +258,6 @@ poleceń.
 
 %prep
 %setup -q -n db-%{ver}
-
 # official patches
 %patchset_patch 1 %{patchlevel}
 
@@ -273,7 +277,6 @@ CXX="%{__cxx}"
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags} -fno-implicit-templates"
 LDFLAGS="%{rpmcflags} %{rpmldflags}"
-
 export CC CXX CFLAGS CXXFLAGS LDFLAGS
 
 ../dist/%configure \
@@ -320,14 +323,14 @@ install -d $RPM_BUILD_ROOT%{_javadir}
 
 %if %{with static_libs}
 %{__make} -C build_unix.static library_install \
-	docdir=%{_docdir}/db-%{version}-docs \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	docdir=%{_docdir}/db-%{version}-docs
 %endif
 
 %{__make} -C build_unix library_install \
-	docdir=%{_docdir}/db-%{version}-docs \
 	DESTDIR=$RPM_BUILD_ROOT \
-	LIB_INSTALL_FILE_LIST=""
+	LIB_INSTALL_FILE_LIST="" \
+	docdir=%{_docdir}/db-%{version}-docs
 
 mv $RPM_BUILD_ROOT%{_libdir}/libdb-%{libver}.so $RPM_BUILD_ROOT/%{_lib}
 
@@ -375,7 +378,7 @@ cp -rf examples_java/* $RPM_BUILD_ROOT%{_examplesdir}/db-java-%{version}
 %endif
 
 # in %doc
-rm -f $RPM_BUILD_ROOT%{_docdir}/db-%{version}-docs/{index.html,license/license_db.html}
+%{__rm} $RPM_BUILD_ROOT%{_docdir}/db-%{version}-docs/{index.html,license/license_db.html}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
