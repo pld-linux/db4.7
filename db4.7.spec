@@ -65,6 +65,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-devel = %{version}-%{release}
+Obsoletes:	db-devel
 Obsoletes:	db3-devel
 Obsoletes:	db4-devel
 %endif
@@ -98,6 +99,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-static = %{version}-%{release}
+Obsoletes:	db-static
 Obsoletes:	db3-static
 Obsoletes:	db4-static
 %endif
@@ -158,6 +160,7 @@ Requires:	%{name}-cxx = %{epoch}:%{version}-%{release}
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-cxx-devel = %{version}-%{release}
+Obsoletes:	db-cxx-devel
 %endif
 Conflicts:	db-devel < 4.1.25-3
 
@@ -174,6 +177,7 @@ Group:		Development/Libraries
 Requires:	%{name}-cxx-devel = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-cxx-static = %{version}-%{release}
+Obsoletes:	db-cxx-static
 %endif
 Conflicts:	db-static < 4.2.50-1
 
@@ -190,6 +194,7 @@ Group:		Libraries
 Requires:	jpackage-utils
 %if %{with default_db}
 Provides:	db-java = %{version}-%{release}
+Obsoletes:	db-java
 %endif
 
 %description java
@@ -205,6 +210,7 @@ Group:		Development/Languages/Java
 Requires:	%{name}-java = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-java-devel = %{version}-%{release}
+Obsoletes:	db-java-devel
 %endif
 Conflicts:	db-devel < 4.1.25-3
 
@@ -237,6 +243,7 @@ Group:		Development/Languages/Tcl
 Requires:	%{name}-tcl = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-tcl-devel = %{version}-%{release}
+Obsoletes:	db-tcl-devel
 %endif
 Conflicts:	db-devel < 4.1.25-3
 
@@ -253,6 +260,7 @@ Group:		Applications/Databases
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %if %{with default_db}
 Provides:	db-utils = %{version}-%{release}
+Obsoletes:	db-utils
 Obsoletes:	db3-utils
 Obsoletes:	db4-utils
 %endif
