@@ -311,12 +311,12 @@ LDFLAGS="%{rpmcflags} %{rpmldflags}"
 export CC CXX CFLAGS CXXFLAGS LDFLAGS
 
 ../dist/%configure \
-	--enable-compat185 \
 	--disable-shared \
 	--enable-static \
-	--enable-rpc \
+	--enable-compat185 \
+	--enable-cxx \
 	--enable-posixmutexes \
-	--enable-cxx
+	--enable-rpc
 
 # (temporarily?) disabled because of compilation errors:
 #	--enable-dump185 \
@@ -330,15 +330,14 @@ cd build_unix
 ../dist/%configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
-	--enable-compat185 \
-	--enable-rpc \
-	--enable-posixmutexes \
-	--enable-cxx \
-	%{?with_tcl:--enable-tcl} \
-	%{?with_tcl:--with-tcl=/usr/lib} \
-	%{?with_java:--enable-java} \
+	--enable-shared \
 	--disable-static \
-	--enable-shared
+	--enable-compat185 \
+	--enable-cxx \
+	--enable-posixmutexes \
+	--enable-rpc \
+	%{?with_java:--enable-java} \
+	%{?with_tcl:--enable-tcl --with-tcl=/usr/lib}
 
 %{__make} library_build \
 	TCFLAGS='-I$(builddir) -I%{_includedir}' \
@@ -376,7 +375,7 @@ mv -f libdb.a libdb-%{libver}.a
 mv -f libdb_cxx.a libdb_cxx-%{libver}.a
 %endif
 %if %{with java}
-mv -f $RPM_BUILD_ROOT%{_libdir}/*.jar $RPM_BUILD_ROOT%{_javadir}
+mv -f $RPM_BUILD_ROOT%{_libdir}/db.jar $RPM_BUILD_ROOT%{_javadir}/db-%{libver}.jar
 %endif
 %if %{with default_db}
 ln -sf /%{_lib}/libdb-%{libver}.so libdb.so
@@ -390,6 +389,7 @@ ln -sf libdb_cxx-%{libver}.so libdb_cxx.so
 ln -sf libdb_cxx-%{libver}.la libdb_cxx.la
 %if %{with java}
 ln -sf libdb_java-%{libver}.la libdb_java.la
+ln -sf db-%{libver}.jar $RPM_BUILD_ROOT%{_javadir}/db.jar
 %endif
 %if %{with tcl}
 ln -sf libdb_tcl-%{libver}.so libdb_tcl.so
@@ -406,6 +406,16 @@ ln -sf libdb_cxx-%{libver}.a libdb_cxx.a
 sed -i "s/old_library=''/old_library='libdb-%{libver}.a'/" libdb-%{libver}.la
 sed -i "s/old_library=''/old_library='libdb_cxx-%{libver}.a'/" libdb_cxx-%{libver}.la
 
+cd -
+
+cd $RPM_BUILD_ROOT%{_bindir}
+mv -f berkeley_db_svc berkeley_db_svc-%{libver}
+%{?with_default_db:ln -sf berkeley_db_svc-%{libver} berkeley_db_svc}
+for F in db_*; do
+  Fver=$(echo $F|sed 's/db_/db%{libver}_/')
+  mv $F $Fver
+  %{?with_default_db:ln -sf $Fver $F}
+done
 cd -
 rm -f examples_c*/tags
 install -d $RPM_BUILD_ROOT%{_examplesdir}/db-%{version}
@@ -520,7 +530,10 @@ rm -rf $RPM_BUILD_ROOT
 %files java
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libdb_java-%{libver}.so
+%{_javadir}/db-%{libver}.jar
+%if %{with default_db}
 %{_javadir}/db.jar
+%endif
 
 %files java-devel
 %defattr(644,root,root,755)
@@ -554,19 +567,35 @@ rm -rf $RPM_BUILD_ROOT
 
 %files utils
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/berkeley_db_svc-%{libver}
+%attr(755,root,root) %{_bindir}/db%{libver}_archive
+%attr(755,root,root) %{_bindir}/db%{libver}_checkpoint
+%attr(755,root,root) %{_bindir}/db%{libver}_codegen
+%attr(755,root,root) %{_bindir}/db%{libver}_deadlock
+%attr(755,root,root) %{_bindir}/db%{libver}_dump
+#%attr(755,root,root) %{_bindir}/db%{libver}_dump185
+%attr(755,root,root) %{_bindir}/db%{libver}_hotbackup
+%attr(755,root,root) %{_bindir}/db%{libver}_load
+%attr(755,root,root) %{_bindir}/db%{libver}_printlog
+%attr(755,root,root) %{_bindir}/db%{libver}_recover
+%attr(755,root,root) %{_bindir}/db%{libver}_stat
+%attr(755,root,root) %{_bindir}/db%{libver}_upgrade
+%attr(755,root,root) %{_bindir}/db%{libver}_verify
+%if %{with default_db}
 %attr(755,root,root) %{_bindir}/berkeley_db_svc
-%attr(755,root,root) %{_bindir}/db*_archive
-%attr(755,root,root) %{_bindir}/db*_checkpoint
-%attr(755,root,root) %{_bindir}/db*_codegen
-%attr(755,root,root) %{_bindir}/db*_deadlock
-%attr(755,root,root) %{_bindir}/db*_dump
-#%attr(755,root,root) %{_bindir}/db*_dump185
-%attr(755,root,root) %{_bindir}/db*_hotbackup
-%attr(755,root,root) %{_bindir}/db*_load
-%attr(755,root,root) %{_bindir}/db*_printlog
-%attr(755,root,root) %{_bindir}/db*_recover
-%attr(755,root,root) %{_bindir}/db*_stat
-%attr(755,root,root) %{_bindir}/db*_upgrade
-%attr(755,root,root) %{_bindir}/db*_verify
+%attr(755,root,root) %{_bindir}/db_archive
+%attr(755,root,root) %{_bindir}/db_checkpoint
+%attr(755,root,root) %{_bindir}/db_codegen
+%attr(755,root,root) %{_bindir}/db_deadlock
+%attr(755,root,root) %{_bindir}/db_dump
+#%attr(755,root,root) %{_bindir}/db_dump185
+%attr(755,root,root) %{_bindir}/db_hotbackup
+%attr(755,root,root) %{_bindir}/db_load
+%attr(755,root,root) %{_bindir}/db_printlog
+%attr(755,root,root) %{_bindir}/db_recover
+%attr(755,root,root) %{_bindir}/db_stat
+%attr(755,root,root) %{_bindir}/db_upgrade
+%attr(755,root,root) %{_bindir}/db_verify
+%endif
 %dir %{_docdir}/db-%{version}-docs
 %{_docdir}/db-%{version}-docs/utility
