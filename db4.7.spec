@@ -4,7 +4,7 @@
 %bcond_without	java		# don't build Java bindings
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
-%bcond_without	default_db	# don't use this db as default system db [Th uses DB 4.7]
+%bcond_with	default_db	# use this db as default system db [Th uses DB 5.3]
 
 %{?with_java:%include	/usr/lib/rpm/macros.java}
 
@@ -15,7 +15,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	7
+Release:	8
 Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
