@@ -23,6 +23,7 @@ Group:		Libraries
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	ec2b87e833779681a0c3a814aa71359e
 %patchset_source -f http://download.oracle.com/berkeley-db/patches/db/%{ver}/patch.%{ver}.%g 1 %{patchlevel}
+Patch0:		%{name}-format-security.patch
 URL:		http://www.oracle.com/technetwork/database/berkeleydb/downloads/index.html
 BuildRequires:	automake
 BuildRequires:	ed
@@ -291,6 +292,8 @@ poleceń.
 %setup -q -n db-%{ver}
 # official patches
 %patchset_patch 1 %{patchlevel}
+
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub dist
