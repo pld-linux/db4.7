@@ -14,7 +14,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
-Release:	8
+Release:	9
 License:	GPL-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/database/berkeleydb/downloads/index-082944.html
@@ -129,6 +129,9 @@ używających Berkeley DB.
 Summary:	Berkeley database library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki baz danych Berkeley
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API and internal documentation for Berkeley database library.
