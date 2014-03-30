@@ -6,17 +6,15 @@
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	default_db	# use this db as default system db [Th uses DB 5.3]
 
-%{?with_java:%include	/usr/lib/rpm/macros.java}
-
 %define		libver		4.7
 %define		ver		%{libver}.25
 %define		patchlevel	4
+%{?with_java:%include	/usr/lib/rpm/macros.java}
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
 Version:	%{ver}.%{patchlevel}
 Release:	8
-Epoch:		0
 License:	GPL-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/database/berkeleydb/downloads/index-082944.html
@@ -37,8 +35,8 @@ BuildRequires:	sed >= 4.0
 %{?with_tcl:BuildRequires:	tcl-devel >= 8.4.0}
 Requires:	uname(release) >= 2.6.0
 %if %{with default_db}
-Provides:	db = %{version}-%{release}
 Provides:	db = %{libver}
+Provides:	db = %{version}-%{release}
 Obsoletes:	db4
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -63,7 +61,7 @@ Pythonie i Perlu.
 Summary:	Header files for Berkeley database library
 Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki Berkeley Database
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-devel = %{version}-%{release}
 Obsoletes:	db-devel
@@ -97,7 +95,7 @@ programów używających Berkeley DB.
 Summary:	Static libraries for Berkeley database library
 Summary(pl.UTF-8):	Statyczne biblioteki Berkeley Database
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-static = %{version}-%{release}
 Obsoletes:	db-static
@@ -157,8 +155,8 @@ Biblioteka baz danych Berkeley dla C++.
 Summary:	Header files for db-cxx library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki db-cxx
 Group:		Development/Libraries
-Requires:	%{name}-cxx = %{epoch}:%{version}-%{release}
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-cxx = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-cxx-devel = %{version}-%{release}
 Obsoletes:	db-cxx-devel
@@ -175,7 +173,7 @@ Pliki nagłówkowe biblioteki db-cxx.
 Summary:	Static version of db-cxx library
 Summary(pl.UTF-8):	Statyczna wersja biblioteki db-cxx
 Group:		Development/Libraries
-Requires:	%{name}-cxx-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-cxx-devel = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-cxx-static = %{version}-%{release}
 Obsoletes:	db-cxx-static
@@ -208,7 +206,7 @@ Biblioteka baz danych Berkeley dla Javy.
 Summary:	Development files for db-java library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki db-java
 Group:		Development/Languages/Java
-Requires:	%{name}-java = %{epoch}:%{version}-%{release}
+Requires:	%{name}-java = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-java-devel = %{version}-%{release}
 Obsoletes:	db-java-devel
@@ -241,7 +239,7 @@ Biblioteka baz danych Berkeley dla Tcl.
 Summary:	Development files for db-tcl library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki db-tcl
 Group:		Development/Languages/Tcl
-Requires:	%{name}-tcl = %{epoch}:%{version}-%{release}
+Requires:	%{name}-tcl = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-tcl-devel = %{version}-%{release}
 Obsoletes:	db-tcl-devel
@@ -258,7 +256,7 @@ Pliki programistyczne biblioteki db-tcl.
 Summary:	Command line tools for managing Berkeley DB databases
 Summary(pl.UTF-8):	Narzędzia do obsługi baz Berkeley DB z linii poleceń
 Group:		Applications/Databases
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 %if %{with default_db}
 Provides:	db-utils = %{version}-%{release}
 Obsoletes:	db-utils
