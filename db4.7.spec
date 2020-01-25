@@ -9,7 +9,6 @@
 %define		libver		4.7
 %define		ver		%{libver}.25
 %define		patchlevel	4
-%{?with_java:%include	/usr/lib/rpm/macros.java}
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db4.7
