@@ -128,9 +128,7 @@ używających Berkeley DB.
 Summary:	Berkeley database library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki baz danych Berkeley
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API and internal documentation for Berkeley database library.
