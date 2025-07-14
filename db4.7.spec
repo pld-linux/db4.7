@@ -291,7 +291,7 @@ poleceń.
 # official patches
 %patchset_patch 1 %{patchlevel}
 
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub dist
